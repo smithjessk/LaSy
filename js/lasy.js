@@ -100,7 +100,7 @@ function toPrimaryExprTree(exprs, ops) {
         return ops[0];
     } else {
         var nestedExpr = new PrimaryExpression(ops[0], exprs[0], ops[1]);
-        for (var i = 1; i < exprs.length - 1; i++) {
+        for (var i = 1; i < ops.length - 1; i++) {
             nestedExpr = new PrimaryExpresion(nestedExpr, 
                 exprs[i], ops[i + 1]);
         }
@@ -271,6 +271,10 @@ function lexer(input) {
                     input.substring(begin, index)));
                 break;
 
+            // Whitespace
+            case " ":
+                break;
+
             // Default
             default: 
                 if (isDigit(character)) {
@@ -309,4 +313,5 @@ function translate(input) {
 
 // If no command line argument, take a default one (e.g. 'a \\mod b')
 var input = (process.argv[2] !== undefined) ? process.argv[2] : 'a \\mod b';
-console.log('Binary Tree: \n', translate(input));
+var output = translate(input);
+console.log('Binary Tree: \n', output);
